@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reservations</title>
+    <style>
+        /* Your styles go here */
+    </style>
+</head>
+<body>
+    <h1>Reservations</h1>
+    <ul>
+        <% for(var i=0; i<reservations.length; i++) { %>
+            <li>Reservas: <%= reservations[i].name %> el dia <%= reservations[i].day %> a las <%= reservations[i].hour %></li>
+        <% } %>
+    </ul>
+</body>
+</html>
