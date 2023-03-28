@@ -1,17 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Reservations</title>
+    <title>Reservas & Turnos</title>
+
     <style>
-        /* Your styles go here */
+        html,body{
+            background-color: white;
+            color: grey;
+            font-size: large;
+            padding: 0px;
+            margin: 0px;
+        }
+        h1{
+            padding: 10px;
+            text-decoration:underline;
+        }
+        table{
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td{
+            border: 1px solid black;
+            text-align: left;
+            padding: 8px;
+        }
+        th{
+            background-color: #dddddd;
+        }
+        img{
+            width: auto;
+            height: auto;
+            max-width: 150px;
+            max-height: fit-content;
+        }
+        div{
+            display: flex;
+        }
+        table{
+            padding: 10px;
+            margin: 15px;
+            width: 70%;
+        }
     </style>
 </head>
 <body>
-    <h1>Reservations</h1>
-    <ul>
-        <% for(var i=0; i<reservations.length; i++) { %>
-            <li>Reservas: <%= reservations[i].name %> el dia <%= reservations[i].day %> a las <%= reservations[i].hour %></li>
+    <div>
+        <img src="https://caliz.netlify.app/images/logo.jpeg">
+        <h1>Reservas & turnos:</h1>
+    </div>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Day</th>
+            <th>Hour</th>
+        </tr>
+        <% reservations.sort((CompareA, CompareB) => {
+            if (CompareA.day !== CompareB.day) {
+                return CompareA.day.localeCompare(CompareB.day);
+            } else {
+                return parseInt(CompareA.hour) - parseInt(CompareB.hour);
+            };
+        });
+        for(var i=0; i<reservations.length; i++) { %>
+            <tr>
+                <td><%= reservations[i].name %></td>
+                <td><%= reservations[i].day %></td>
+                <td><%= reservations[i].hour %></td>
+            </tr>
         <% } %>
-    </ul>
+    </table>
 </body>
 </html>

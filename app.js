@@ -6,6 +6,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const db = require ("./config/db");
+const cors = require ("cors");
 
 // Path routes
 var indexRouter = require('./routes/index');
