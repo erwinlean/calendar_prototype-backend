@@ -54,6 +54,7 @@
             <th>Day</th>
             <th>Hour</th>
         </tr>
+        <!--Sort reservation by day and hour then display on a the table-->
         <% reservations.sort((CompareA, CompareB) => {
             if (CompareA.day !== CompareB.day) {
                 return CompareA.day.localeCompare(CompareB.day);
