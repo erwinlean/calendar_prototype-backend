@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const db = require ("./config/db");
 const cors = require ("cors");
+const corstData = require("./config/corsData.json")
 
 // Path routes
 var indexRouter = require('./routes/index');
@@ -37,12 +38,12 @@ app.use('/reservations', reservationRouter);
 
 // Cors
 const corsOptions = {
-  origin: ['https://caliz.netlify.app/'],
+  origin: [`${corstData.calizWeb}`],
   methods: ['GET', 'POST'],
 };
 app.use(cors(corsOptions));
 app.use((req, res, next) => {
-  const allowedOrigins = ['***.***.*'];
+  const allowedOrigins = [`${corstData.myIP}`];
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
     res.setHeader('Access-Control-Allow-Origin', origin);
