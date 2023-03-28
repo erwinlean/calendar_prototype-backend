@@ -17,7 +17,9 @@
         }
         table{
             border-collapse: collapse;
-            width: 100%;
+            padding: 10px;
+            margin: 15px;
+            width: 85%;
         }
         th, td{
             border: 1px solid black;
@@ -26,6 +28,7 @@
         }
         th{
             background-color: #dddddd;
+            color: black;
         }
         img{
             width: auto;
@@ -36,11 +39,6 @@
         div{
             display: flex;
         }
-        table{
-            padding: 10px;
-            margin: 15px;
-            width: 70%;
-        }
     </style>
 </head>
 <body>
@@ -50,9 +48,12 @@
     </div>
     <table>
         <tr>
-            <th>Name</th>
-            <th>Day</th>
-            <th>Hour</th>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Telefono</th>
+            <th>Dia</th>
+            <th>Hora</th>
+            <th>Mail</th>
         </tr>
         <!--Sort reservation by day and hour then display on a the table-->
         <% reservations.sort((CompareA, CompareB) => {
@@ -65,8 +66,11 @@
         for(var i=0; i<reservations.length; i++) { %>
             <tr>
                 <td><%= reservations[i].name %></td>
+                <td><%= reservations[i].type %></td>
+                <td><%= reservations[i].celphone %></td>
                 <td><%= reservations[i].day %></td>
                 <td><%= reservations[i].hour %></td>
+                <td><%= reservations[i].email %></td>
             </tr>
         <% } %>
     </table>

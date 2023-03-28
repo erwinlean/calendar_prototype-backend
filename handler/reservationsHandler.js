@@ -5,7 +5,7 @@ const Reservation = require('../schema/reservationsSchema');
 module.exports = {
     postReservation: async function(req, res ,next){
         try {
-            const existingReservation = await Reservation.findOne({ day: req.body.day, hour: req.body.hour });
+            const existingReservation = await Reservation.findOne({ day: req.body.day, hour: req.body.hour, type:req.body.type}).select("_id");
             if (existingReservation) {
                 return res.status(400).json({ message: "This date & hour is already taken" });
             }
@@ -13,6 +13,7 @@ module.exports = {
             const reservation = new Reservation({ 
                 name: req.body.name, 
                 email: req.body.email,  
+                type: req.body.type, 
                 celphone: req.body.celphone,  
                 day: req.body.day,  
                 hour: req.body.hour 
@@ -25,7 +26,7 @@ module.exports = {
     },
     getReservation: async function(req, res, next){
         try {
-            const reservations = await Reservation.find().select('name day hour');
+            const reservations = await Reservation.find().select('name type day hour');
             // find like:
             //http://localhost:3000/reservations/getSpecificReservations?name=pepe
             res.json(reservations);
@@ -37,11 +38,11 @@ module.exports = {
         try {
             const reservations = await Reservation.find();
             const groupedReservations = reservations.reduce((groupedReserv, reservation) => {
-                const { name, day, hour } = reservation;
+                const { name, day, hour, type} = reservation;
                 if (!groupedReserv[name]) {
                     groupedReserv[name] = [];
                 }
-                groupedReserv[name].push({ day, hour });
+                groupedReserv[name].push({ day, hour, type});
                 return groupedReserv;
             }, {});
             res.json(groupedReservations);
@@ -58,6 +59,14 @@ module.exports = {
                 return res.status(404).json({ message: "Reservation not found" });
             }
             res.json({ message: "Reservation deleted" });
+        } catch (err) {
+            res.status(500).json({ message: err.message });
+        }
+    },
+    deleteEverything: async function(req, res, next) {
+        try {
+            await Reservation.deleteMany({});
+            res.json({ message: "All reservations deleted" });
         } catch (err) {
             res.status(500).json({ message: err.message });
         }

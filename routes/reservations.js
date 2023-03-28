@@ -8,6 +8,7 @@ router.post('/', reservationHandler.postReservation);
 router.get('/', reservationHandler.getAllReservations);
 router.get('/getUser', reservationHandler.getReservation);
 router.delete('/deleteUser/:name', reservationHandler.deleteUserRes);
+router.delete("/deleteAll", reservationHandler.deleteEverything);
 
 
 module.exports = router;

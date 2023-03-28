@@ -37,9 +37,20 @@ app.use('/reservations', reservationRouter);
 
 // Cors
 const corsOptions = {
-  origin: ['https://caliz.netlify.app/', 'http://localhost:3000']
+  origin: ['https://caliz.netlify.app/'],
+  methods: ['GET', 'POST'],
 };
 app.use(cors(corsOptions));
+app.use((req, res, next) => {
+  const allowedOrigins = ['***.***.*'];
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
